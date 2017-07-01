@@ -4,17 +4,15 @@ import pandas as pd
 
 
 #Get the places name
-b = xlrd.open_workbook("data.xlsx")
+b = xlrd.open_workbook("distances.xlsx")
 sh = b.sheet_by_index(0)
 places = sh.row_values(0)
 marked = []
 
 del places[0]
 
-distances = pd.read_excel('data.xlsx').as_matrix()
-print distances[places.index("Gabtoli")][places.index("Kalshi")]
+distances = pd.read_excel('distances.xlsx').as_matrix()
 
-print distances
 
 g = Graph()
 for p in places:
@@ -26,4 +24,5 @@ for p in places:
         dist_from_p[q] = float(distances[idx_p][idx_q])
     g.add_vertex(p, dist_from_p)
 
-print(g.shortest_path('Kalshi', "Gabtoli"))
+def get_path(from_place, to_place):
+    return g.shortest_path(from_place, to_place)
